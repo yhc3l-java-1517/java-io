@@ -1,0 +1,4 @@
+1002;yoda;sysadmin
+1003;luke;master
+1004;leia;superuser
+1005;darth;regularuser
