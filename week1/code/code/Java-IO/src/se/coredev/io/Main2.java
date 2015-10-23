@@ -12,31 +12,41 @@ public final class Main2 {
 
 	public static void main(String[] args) {
 
-		User user1 = new User("master1", "secret");
-		User user2 = new User("master2", "secret");
+		User user1 = new User("1001", "master1", "secret", new Role("admin"));
+		User user2 = new User("1002", "master2", "secret", new Role("user"));
 		List<User> users = new ArrayList<>();
 
 		users.add(user1);
 		users.add(user2);
 
-		// Write
-		try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("user.data"))) {
-			out.writeObject(users);
+		UserStorage storage = new UserStorage("users");
+//		storage.add(users);
+		for (User user : storage.getAll()) {
+			System.out.println("Username:"+ user.getUsername() + ", Password:" + user.getPassword()
+			+ "Role:" + user.getRole().getName());
 		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
+		System.out.println("Finished!");
 
-		// Read
-		try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("user.data"))) {
-			List<User> usersFromDisk = (List<User>) in.readObject();
-			for (User u : usersFromDisk) {
-				System.out.println(u.getUsername());
-			}
-		}
-		catch (IOException | ClassNotFoundException e) {
-			e.printStackTrace();
-		}
+		// // Write
+		// try (ObjectOutputStream out = new ObjectOutputStream(new
+		// FileOutputStream("user.data"))) {
+		// out.writeObject(users);
+		// }
+		// catch (IOException e) {
+		// e.printStackTrace();
+		// }
+		//
+		// // Read
+		// try (ObjectInputStream in = new ObjectInputStream(new
+		// FileInputStream("user.data"))) {
+		// List<User> usersFromDisk = (List<User>) in.readObject();
+		// for (User u : usersFromDisk) {
+		// System.out.println(u.getUsername());
+		// }
+		// }
+		// catch (IOException | ClassNotFoundException e) {
+		// e.printStackTrace();
+		// }
 
 	}
 
